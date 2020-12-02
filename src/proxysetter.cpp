@@ -219,7 +219,7 @@ void ProxySetter::restoreProxy(){
 
         QString desk = qgetenv("XDG_CURRENT_DESKTOP");
 
-        if(desk.toUpper().contains("GNOME") || desk.toUpper().contains("DEEPIN") ){
+        if(desk.toUpper().contains("GNOME")){
             ///GNOME
             restoreProxyGnome();
         }else if(desk == "KDE"){
