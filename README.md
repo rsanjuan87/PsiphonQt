@@ -1,6 +1,6 @@
 
 # PsiphonQt
-A Psiphon GUI client in Qt, Cute Psiphon for All
+A Qt GUI client for Psiphon, Cute Psiphon for All
 ## MacOS version 
 <table>
     <tr>
