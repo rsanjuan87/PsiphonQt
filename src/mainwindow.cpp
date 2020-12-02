@@ -72,8 +72,6 @@ MainWindow::MainWindow(QProcess *process, QSystemTrayIcon *tray, QMenu *menu, QW
     setMenuBar(new QMenuBar);
     ui->chkHideFromDockMac->setVisible(false);
 #endif
-    systemProxy = new ProxySetter("123", "321");
-    systemProxy->setProxy();
 }
 
 void MainWindow::setVisible(bool visible)
