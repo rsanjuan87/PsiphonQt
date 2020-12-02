@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>NOTE</key>
+        <string>A Psiphon very cute and for all. http://github.com/rsanjuan87/PsiphonQt</string>
+        <key>CFBundleIdentifier</key>
+        <string>san.org.PsiphonQt</string>
+	<key>NSSupportsAutomaticGraphicsSwitching</key>
+	<true/>
+	<key>LSUIElement</key>
+	<string>NO</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Created by Qt/QMake</string>
+	<key>CFBundleExecutable</key>
+        <string>PsiphonQt</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.12</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+        <key>LSUIElement</key>
+        <string>1</string>
+</dict>
+</plist>
+
+

@@ -1,0 +1,66 @@
+.QWidget, QGroupBox, QMenu {
+   background-color: #001133;/*back*/
+   color: #ffffff;/*font*/
+}
+
+QTabWidget::tab-bar {
+    left: 5px; /* move to the right by 5px */
+}
+
+QComboBox, QLineEdit[echoMode="2"] {
+    min-width: 30ex;
+    min-height: 10ex;
+    lineedit-password-character: 9679;
+    border-width: 6px;
+}
+QTabWidget::pane { /* The tab widget frame */
+     border-top: 0px solid #001133;
+     position: absolute;
+     top: -0.5em;
+ }
+
+QToolButton, QPushButton, QTabBar::tab {
+    background-color: #55eeeeee;
+    border-width: 1px;
+    border-color: #55eeeeee;
+    border-style: solid;
+    padding: 5px;
+    min-width: 30ex;
+    min-height: 10ex;
+    color: #ffffff;
+}
+
+QTabBar::tab {
+    min-width: 10ex;
+    min-height: 5ex;
+}
+
+QToolButton:hover, QPushButton:hover, QTabBar::tab:hover {
+   background-color: #88efefef;
+   border-color: #ffffff;
+}
+
+QToolButton:pressed, QPushButton:pressed, QTabBar::tab:pressed {
+    background-color: #88aaaaaa;
+    border-color: #88777777;
+    border-width: 3px;
+}
+
+QToolButton:selected, QPushButton:selected, QTabBar::tab:selected {
+    background-color: #003399;
+    color: #feffffff;
+}
+
+QToolButton {
+    min-width: 10ex;
+}
+
+QLabel, QAbstractButton {
+    color: #ffffff;/*font*/
+}
+
+/* Mark mandatory fields with a brownish color. */
+.mandatory {
+    color: #ff0000;
+}
+
