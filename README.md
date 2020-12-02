@@ -18,7 +18,7 @@ A Psiphon GUI client in Qt, Cute Psiphon for All
         </td>
         <td >
           Window mode light theme<br/>
-<img height="260" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_windowMode_light.jpg"/>
+<img height="160" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_windowMode_light.jpg"/>
         </td>
     </tr>
   </table>
