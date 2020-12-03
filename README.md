@@ -1,24 +1,26 @@
 
 # PsiphonQt
-A Qt GUI client for Psiphon, Cute Psiphon for All
+A Psiphon GUI client in Qt, Cute Psiphon for All
 ## MacOS version 
 <table>
     <tr>
         <td>
           Menu mode dark theme<br/>
-<img height="160"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_menuMode.jpg"/>
+<img height="160" width="270" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_menuMode.jpg"/>
         </td>
         <td >
           Menu mode light theme<br/>
-<img height="160" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_menuMode_light.jpg"/>
+<img height="160"  width="270" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_menuMode_light.jpg"/>
         </td>
+        </tr>
+        <tr>
         <td >
           Window mode dark theme<br/>
-<img height="160" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_windowMode.jpg"/>
+<img height="160"  width="270" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_windowMode.jpg"/>
         </td>
         <td >
           Window mode light theme<br/>
-<img height="160"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_windowMode_light.jpg"/>
+<img height="160"  width="270"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_windowMode_light.jpg"/>
         </td>
     </tr>
   </table>
@@ -29,11 +31,11 @@ A Qt GUI client for Psiphon, Cute Psiphon for All
     <tr>
         <td>
           Menu mode<br/>
-<img height="160"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Deepin_MenuMode.jpg"/>
+<img height="160"  width="270"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Deepin_MenuMode.jpg"/>
         </td>
         <td >
           Window mode<br/>
-<img height="160" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Deepin_WindowMode.jpg"/>
+<img height="160"  width="270" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Deepin_WindowMode.jpg"/>
         </td>
     </tr>
   </table>
@@ -43,15 +45,15 @@ A Qt GUI client for Psiphon, Cute Psiphon for All
     <tr>
         <td>
           Window mode<br/>
-<img height="160"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Ubuntu_windowMode.jpg"/>
+<img height="160"  width="270"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Ubuntu_windowMode.jpg"/>
         </td>
         <td >
           Menu mode<br/>
-<img height="160" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Ubuntu_menuMode.jpg"/>
+<img height="160" width="270"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Ubuntu_menuMode.jpg"/>
         </td>
         <td >
           Tray Menu<br/>
-<img height="160" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Ubuntu_trayMenu.jpg"/>
+<img height="160" width="270"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Ubuntu_trayMenu.jpg"/>
         </td>
     </tr>
   </table>
@@ -61,11 +63,11 @@ A Qt GUI client for Psiphon, Cute Psiphon for All
     <tr>
         <td>
           Window mode<br/>
-<img height="160"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Plasma_windowMode.jpg"/>
+<img height="160" width="270"   src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Plasma_windowMode.jpg"/>
         </td>
         <td >
           Menu mode<br/>
-<img height="160" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Plasma_menuMode.jpg"/>
+<img height="160" width="270"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Plasma_menuMode.jpg"/>
         </td>
     </tr>
   </table>
@@ -76,15 +78,15 @@ A Qt GUI client for Psiphon, Cute Psiphon for All
     <tr>
         <td>
           Window mode<br/>
-<img height="160"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Windows10_windowMode.jpg"/>
+<img height="160" width="270"   src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Windows10_windowMode.jpg"/>
         </td>
         <td >
           Menu mode<br/>
-<img height="160" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Windows10_menuMode.jpg"/>
+<img height="160"  width="270" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Windows10_menuMode.jpg"/>
         </td>
         <td >
           Menu mode light<br/>
-<img height="160" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Windows10_menuMode_light.jpg"/>
+<img height="160"  width="270" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Windows10_menuMode_light.jpg"/>
         </td>
     </tr>
   </table>
@@ -94,11 +96,11 @@ A Qt GUI client for Psiphon, Cute Psiphon for All
     <tr>
         <td>
           Window mode<br/>
-<img height="160"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Windows7_windowMode.jpg"/>
+<img height="160"  width="270"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Windows7_windowMode.jpg"/>
         </td>
         <td >
           Menu mode<br/>
-<img height="160" src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Windows7_menuMode.jpg"/>
+<img height="160" width="270"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/Windows7_menuMode.jpg"/>
         </td>
     </tr>
   </table>
