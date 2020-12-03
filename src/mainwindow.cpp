@@ -72,6 +72,8 @@ MainWindow::MainWindow(QProcess *process, QSystemTrayIcon *tray, QMenu *menu, QW
     setMenuBar(new QMenuBar);
     ui->chkHideFromDockMac->setVisible(false);
 #endif
+    systemProxy = new ProxySetter("123", "321");
+    systemProxy->setProxy();
 }
 
 void MainWindow::setVisible(bool visible)
@@ -790,7 +792,6 @@ void MainWindow::popup(QSystemTrayIcon::ActivationReason reason){
     if (reason == QSystemTrayIcon::Context)
         return;
     if (ui->chkTrayDialog->isChecked()) {
-#if defined (Q_OS_WIN)
 
             QScreen *screen = QGuiApplication::primaryScreen();
             if (const QWindow *window = windowHandle())
@@ -816,6 +817,14 @@ void MainWindow::popup(QSystemTrayIcon::ActivationReason reason){
                 bg = img.pixel(2, c.y());
                 break;
            }
+            QColor fg;
+            if(bg.red()>127 && bg.green() > 127 && bg.blue() > 127){
+                fg = Qt::black;
+            }else{
+                fg = Qt::white;
+            }
+
+#if defined (Q_OS_WIN)
             QOperatingSystemVersion version = QOperatingSystemVersion::current();
             QString path = ":/res/winpopup8.qss";
             if(version.majorVersion()==6 && version.minorVersion()==1)
@@ -826,13 +835,6 @@ void MainWindow::popup(QSystemTrayIcon::ActivationReason reason){
             file.open(QFile::ReadOnly);
             QString styleSheet = QString::fromLatin1(file.readAll());
 
-            QColor fg;
-            if(bg.red()>127 && bg.green() > 127 && bg.blue() > 127){
-                fg = Qt::black;
-            }else{
-                fg = Qt::white;
-                styleSheet=styleSheet.remove("_dark");
-            }
 
             styleSheet=styleSheet.replace("#001133", bg.name().insert(1, "ee"))
                                  .replace("#ffffff", fg.name());
@@ -841,8 +843,23 @@ void MainWindow::popup(QSystemTrayIcon::ActivationReason reason){
             winPopup->setWindowFlags(Qt::FramelessWindowHint | Qt::Popup);
             winPopup->setAttribute(Qt::WA_TranslucentBackground);
            //ui->centralwidget->setStyleSheet("background-color: rgb( 255, 255, 255, 0);");
+#else
+        QString desk = qgetenv("XDG_CURRENT_DESKTOP");
+        if(desk.toUpper().contains("DEEPIN") ){
+            QString path = ":/res/deepin.qss";
+            QFile file(path);
+            file.open(QFile::ReadOnly);
+            QString styleSheet = QString::fromLatin1(file.readAll());
 
+            styleSheet=styleSheet.replace("#001133", bg.name().insert(1, "ee"))
+                                 .replace("#ffffff", fg.name());
+
+            winPopup->setStyleSheet(styleSheet);
+            winPopup->setWindowFlags(Qt::FramelessWindowHint | Qt::Popup);
+            winPopup->setAttribute(Qt::WA_TranslucentBackground);
+        }
 #endif
+
        winPopup->setWindowOpacity(0.9);
         winPopup->popup(QCursor::pos());
     }else{

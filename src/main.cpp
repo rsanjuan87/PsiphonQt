@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     }
     app.setQuitOnLastWindowClosed(!QSystemTrayIcon::isSystemTrayAvailable());
     QSystemTrayIcon tray;
+    tray.setIcon(QIcon(":/imgs/logo"));
     QProcess p;
     p.setReadChannelMode(QProcess::MergedChannels);
     QMenu menu;

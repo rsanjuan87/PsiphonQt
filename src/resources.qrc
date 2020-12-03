@@ -18,5 +18,6 @@
         <file>imgs/on_over.png</file>
         <file>res/setProxy.bash</file>
         <file>res/setProxy.sh</file>
+        <file>res/deepin.qss</file>
     </qresource>
 </RCC>
