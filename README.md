@@ -105,10 +105,15 @@ A Psiphon GUI client in Qt, Cute Psiphon for All
     </tr>
   </table>
   
-  ##Probado en 
+  ## Probado en 
   -MacOS 10.15.7
+  
   -Ubuntu 20.04 Gnome 3 y Kde Plasma
+  
   -Manjaro 20.2 Kde 
+  
   -Deepin Commiunity 10.03
+  
   -Windows 10
+  
   -Windows 7
