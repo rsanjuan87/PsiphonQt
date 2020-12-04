@@ -106,7 +106,9 @@ A Psiphon GUI client in Qt, Cute Psiphon for All
   </table>
   
   ## Probado en 
-  -MacOS 10.15.7
+  -MacOS BigSur 11
+  
+  -MacOS Calalina 10.15.7
   
   -Ubuntu 20.04 Gnome 3 y Kde Plasma
   
