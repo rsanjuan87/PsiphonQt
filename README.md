@@ -119,3 +119,6 @@ A Psiphon GUI client in Qt, Cute Psiphon for All
   -Windows 10
   
   -Windows 7
+
+ ## Support 
+  https://t.me/psiphonqt
