@@ -119,6 +119,7 @@ private slots:
     void on_chkSetProxyConfig_clicked();
 
     void startTunnel();
+    void detectSetWindowsTheme();
 private:
     Ui::MainWindow *ui;
 

@@ -10,8 +10,6 @@
         <file>imgs/on.png</file>
         <file>imgs/off_over.png</file>
         <file>res/winpopup.qss</file>
-        <file>imgs/checked.png</file>
-        <file>imgs/checked_dark.png</file>
         <file>res/winpopup7.qss</file>
         <file>res/winpopup8.qss</file>
         <file>res/config.json</file>

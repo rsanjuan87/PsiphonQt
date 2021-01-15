@@ -21,7 +21,7 @@ QTabWidget::pane { /* The tab widget frame */
 
 QToolButton, QPushButton, QTabBar::tab {
     background-color: #55eeeeee;
-    border-width: 1px;
+    border-width: 0px;
     border-color: #55eeeeee;
     border-style: solid;
     padding: 5px;
@@ -43,7 +43,7 @@ QToolButton:hover, QPushButton:hover, QTabBar::tab:hover {
 QToolButton:pressed, QPushButton:pressed, QTabBar::tab:pressed {
     background-color: #88aaaaaa;
     border-color: #88777777;
-    border-width: 3px;
+    border-width: 0px;
 }
 
 QToolButton:selected, QPushButton:selected, QTabBar::tab:selected {
@@ -57,6 +57,12 @@ QToolButton {
 
 QLabel, QAbstractButton {
     color: #ffffff;/*font*/
+}
+
+QToolTip {
+    color: #ffffff;
+    background-color: #2a82da;
+    border: 1px solid white;
 }
 
 /* Mark mandatory fields with a brownish color. */

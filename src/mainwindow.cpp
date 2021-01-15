@@ -10,6 +10,7 @@ MainWindow::MainWindow(QProcess *process, QSystemTrayIcon *tray, QMenu *menu, QW
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
     setWindowTitle(qAppName());
     this->process = process;
@@ -74,6 +75,44 @@ MainWindow::MainWindow(QProcess *process, QSystemTrayIcon *tray, QMenu *menu, QW
 #endif
     systemProxy = new ProxySetter("123", "321");
     systemProxy->setProxy();
+    detectSetWindowsTheme();
+
+}
+
+void MainWindow::detectSetWindowsTheme(){
+#ifdef Q_OS_WIN
+    QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",QSettings::NativeFormat);
+    if(settings.value("AppsUseLightTheme")==0){
+        qApp->setStyle(QStyleFactory::create("Fusion"));
+        QPalette darkPalette;
+        QColor darkColor = QColor(10,10,10);
+        QColor disabledColor = QColor(127,127,127);
+        darkPalette.setColor(QPalette::Window, darkColor);
+        darkPalette.setColor(QPalette::WindowText, Qt::white);
+        darkPalette.setColor(QPalette::Base, QColor(18,18,18));
+        darkPalette.setColor(QPalette::AlternateBase, darkColor);
+        darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
+        darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+        darkPalette.setColor(QPalette::Text, Qt::white);
+        darkPalette.setColor(QPalette::Disabled, QPalette::Text, disabledColor);
+        darkPalette.setColor(QPalette::Button, darkColor);
+        darkPalette.setColor(QPalette::ButtonText, Qt::white);
+        darkPalette.setColor(QPalette::Disabled, QPalette::ButtonText, disabledColor);
+        darkPalette.setColor(QPalette::BrightText, Qt::red);
+        darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+
+        darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+        darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+        darkPalette.setColor(QPalette::Disabled, QPalette::HighlightedText, disabledColor);
+
+        qApp->setPalette(darkPalette);
+        QFile file(":/res/winpopup.qss");
+        file.open(QFile::ReadOnly);
+        QString styleSheet = QString::fromLatin1(file.readAll());
+        styleSheet=styleSheet.replace("#001133", darkColor.name());
+        qApp->setStyleSheet(styleSheet);
+    }
+#endif
 }
 
 void MainWindow::setVisible(bool visible)
@@ -317,6 +356,7 @@ void MainWindow::show(){
         move(x, y);
         raise();
     }
+    detectSetWindowsTheme();
 }
 
 void MainWindow::receivedMessage(quint32 instanceId, QByteArray message)
@@ -785,7 +825,6 @@ void MainWindow::setTrayMenu(bool showPage){
 #if not defined (Q_OS_MAC)
        connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(popup(QSystemTrayIcon::ActivationReason)));
 #endif
-
 }
 
 void MainWindow::popup(QSystemTrayIcon::ActivationReason reason){
@@ -799,6 +838,8 @@ void MainWindow::popup(QSystemTrayIcon::ActivationReason reason){
             if (!screen)
                 return;
 
+
+#if not defined (Q_OS_MAC)
             QImage img = screen->grabWindow(0).toImage();
             QPair<Position, int> p = getTaskData();
             QPoint c = QCursor::pos();
@@ -823,7 +864,6 @@ void MainWindow::popup(QSystemTrayIcon::ActivationReason reason){
             }else{
                 fg = Qt::white;
             }
-
 #if defined (Q_OS_WIN)
             QOperatingSystemVersion version = QOperatingSystemVersion::current();
             QString path = ":/res/winpopup8.qss";
@@ -858,6 +898,7 @@ void MainWindow::popup(QSystemTrayIcon::ActivationReason reason){
             winPopup->setWindowFlags(Qt::FramelessWindowHint | Qt::Popup);
             winPopup->setAttribute(Qt::WA_TranslucentBackground);
         }
+#endif
 #endif
 
        winPopup->setWindowOpacity(0.9);
