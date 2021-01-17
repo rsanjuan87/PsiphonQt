@@ -405,7 +405,8 @@ void MainWindow::parceReceivedMessage(quint32 instanceId, QByteArray message)
     Q_UNUSED(instanceId);
     QString msg = QString(message).remove(qApp->applicationFilePath());
     if(msg == Params::FROM_SECOND){
-        tray->showMessage(qAppName(), tr("Ya está en ejecución"));
+        tray->showMessage(qAppName(), tr("Already running"));
+        setPage(0);
         return;
     }
     QList<QString> list = msg.remove(Params::FROM_SECOND).split(' ');
@@ -626,7 +627,7 @@ void MainWindow::writeTunelConfig(){
     json["LocalHttpProxyPort"] = ui->editLocalHttpPort->value();
 
     int t = ui->cmbRegions->currentIndex();
-    QString iso = regionsList.at(t-1);
+    QString iso = t==0?"":regionsList.at(t-1);
     json["EgressRegion"] = t==0?"":iso;
     ui->btnCountryFlag->setIcon(QIcon(t==0 ? ":/imgs/fastCountry"
                                            : CountryData::iso2flag(iso)));
