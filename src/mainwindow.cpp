@@ -870,7 +870,6 @@ QImage MainWindow::getImageTrayIcon(){
 #endif
             return QImage(":/imgs/light.png");
         }else{
-            screen->grabWindow(0).save(QDir::homePath()+"/image.png");
                 QImage img = screen->grabWindow(0).toImage();
                 QPair<Position, int> p = getWinTaskbarData();
                 QColor bg;
