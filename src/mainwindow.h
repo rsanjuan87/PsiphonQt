@@ -120,6 +120,7 @@ private slots:
     void startTunnel();
     void detectSetWindowsTheme();
     QImage getImageTrayIcon();
+    void updateRegions();
 private:
     Ui::MainWindow *ui;
 
@@ -132,6 +133,7 @@ private:
 
     QString tunelCorePath;
     QString tunelCoreDir;
+    QList<QString> regionsList;
     QString configPath;
     QTimer timerConnecting;
     QWidgetAction *widPopup;

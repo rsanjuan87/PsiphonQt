@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>304</width>
-    <height>439</height>
+    <width>303</width>
+    <height>418</height>
    </rect>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -27,7 +27,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_main">
        <property name="layoutDirection">
@@ -263,14 +263,14 @@ color: rgb(0, 0, 0);</string>
         <property name="bottomMargin">
          <number>5</number>
         </property>
-        <item row="1" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="label_7">
           <property name="text">
            <string>Local tunnel port Http</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="2" column="1">
          <widget class="QSpinBox" name="editLocalHttpPort">
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -289,7 +289,7 @@ color: rgb(0, 0, 0);</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="3" column="0">
          <widget class="QLabel" name="label_8">
           <property name="text">
            <string>Socks</string>
@@ -299,7 +299,7 @@ color: rgb(0, 0, 0);</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="3" column="1">
          <widget class="QSpinBox" name="editLocalSocksPort">
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -318,7 +318,7 @@ color: rgb(0, 0, 0);</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0" colspan="2">
+        <item row="4" column="0" colspan="2">
          <widget class="QGroupBox" name="chkUseProxy">
           <property name="title">
            <string>Use http proxy connection</string>
@@ -418,7 +418,7 @@ color: rgb(0, 0, 0);</string>
           </layout>
          </widget>
         </item>
-        <item row="5" column="1">
+        <item row="6" column="1">
          <widget class="QPushButton" name="btnSaveTunnelConfig">
           <property name="text">
            <string>Apply</string>
@@ -438,7 +438,7 @@ color: rgb(0, 0, 0);</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
+        <item row="7" column="1">
          <spacer name="verticalSpacer_3">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -451,7 +451,7 @@ color: rgb(0, 0, 0);</string>
           </property>
          </spacer>
         </item>
-        <item row="4" column="0" colspan="2">
+        <item row="5" column="0" colspan="2">
          <widget class="QCheckBox" name="chkSetProxyConfig">
           <property name="text">
            <string>Set and restore system proxy 
@@ -459,6 +459,22 @@ on connect or disconnect</string>
           </property>
           <property name="checked">
            <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="cmbRegions">
+          <item>
+           <property name="text">
+            <string>Faster</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Country selection</string>
           </property>
          </widget>
         </item>
@@ -798,7 +814,7 @@ on connect or disconnect</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>304</width>
+     <width>303</width>
      <height>22</height>
     </rect>
    </property>

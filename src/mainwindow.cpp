@@ -284,12 +284,29 @@ void MainWindow::setTunelStoped(int){
     ui->tab_config->setEnabled(true);
 }
 
+void MainWindow::updateRegions(){
+    ui->cmbRegions->clear();
+    ui->cmbRegions->addItems(QStringList(tr("Faster")));
+    ui->cmbRegions->addItems(regionsList);
+}
+
 void MainWindow::readout(){
     QString readed = process->readAll();
     for(QString line : readed.split("\n")){
         QJsonDocument loadDoc(QJsonDocument::fromJson(readed.toUtf8()));
 
         QJsonObject json = loadDoc.object();
+
+
+        if(!json["data"].toObject()["regions"].toArray().isEmpty()){
+            QJsonArray arr = json["data"].toObject()["regions"].toArray();
+            regionsList.clear();
+            for(QJsonValue o: arr){
+                regionsList<< o.toString();
+            }
+            updateRegions();
+            writeAppConfig();
+        }
         QString type = json["noticeType"].toString();
         if(type == "Tunnels") {
             if(json["data"].toObject()["count"].toInt() > 0 ){
@@ -489,6 +506,9 @@ void MainWindow::readTunelConfig(){
         ui->editLocalHttpPort->setValue(json["LocalHttpProxyPort"].toInt());
     }
 
+    QString t = json["EgressRegion"].toString();
+    int i = regionsList.indexOf(t);
+    ui->cmbRegions->setCurrentIndex(t.isEmpty()?0:i+1);
 }
 
 void MainWindow::readAppConfig(){
@@ -536,6 +556,15 @@ void MainWindow::readAppConfig(){
         if(json.contains("noShowScreenCapPermission") ){
             noShowScreenCapPermission = json["noShowScreenCapPermission"].toBool();
         }
+        if(!json["regions"].toArray().isEmpty()){
+            QJsonArray arr = json["regions"].toArray();
+            regionsList.clear();
+            for(QJsonValue o: arr){
+                regionsList<< o.toString();
+            }
+            updateRegions();
+        }
+
         setTrayMenu(false);
     }
     if(!QFileInfo::exists(configPath)){
@@ -587,6 +616,9 @@ void MainWindow::writeTunelConfig(){
     json["LocalSocksProxyPort"] = ui->editLocalSocksPort->value();
     json["LocalHttpProxyPort"] = ui->editLocalHttpPort->value();
 
+    QString t = ui->cmbRegions->currentText();
+    json["EgressRegion"] = ui->cmbRegions->currentIndex()==0?"":t;
+
     QJsonDocument saveDoc(json);
     saveFile.resize(0);
     saveFile.write(saveDoc.toJson());
@@ -633,6 +665,8 @@ void MainWindow::writeAppConfig(){
     json["TunnelNotifications"]= ui->chkTunnelNotifications->isChecked();
     json["noShowScreenCapPermission"]= noShowScreenCapPermission;
 
+    json["regions"] = QJsonArray::fromStringList(regionsList);
+
     QJsonDocument saveDoc(json);
     saveFile.resize(0);
     saveFile.write(saveDoc.toJson());
@@ -649,6 +683,7 @@ void MainWindow::on_pushButton_2_clicked(){
 
 void MainWindow::on_btnSaveTunnelConfig_clicked(){
     writeTunelConfig();
+    writeAppConfig();
 }
 
 void MainWindow::on_btnCustomCoreExe_clicked(){
@@ -770,7 +805,6 @@ void MainWindow::setIcon(QString icon){
 
 QImage MainWindow::getImageTrayIcon(){
     if(trayIcon == DETECT_TRAY_BG_COLOR){
-        //todo
         QScreen *screen = QGuiApplication::primaryScreen();
         if (const QWindow *window = windowHandle())
             screen = window->screen();
