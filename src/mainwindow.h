@@ -118,6 +118,7 @@ private slots:
     void on_chkSetProxyConfig_clicked();
 
     void startTunnel();
+    void stopTunnel();
     void detectSetWindowsTheme();
     QImage getImageTrayIcon();
     void updateRegions();

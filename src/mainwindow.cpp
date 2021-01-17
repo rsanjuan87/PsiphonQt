@@ -409,15 +409,29 @@ void MainWindow::parceReceivedMessage(quint32 instanceId, QByteArray message)
         setPage(0);
         return;
     }
+    if (msg.contains(Params::FROM_SECOND)){
+        msg = msg.remove(Params::FROM_SECOND);
+        qInfo() << "Message received" << msg;
+    }
     QList<QString> list = msg.remove(Params::FROM_SECOND).split(' ');
     for(QString s: list){
         if(s.startsWith(Params::SHOW_PAGE)){
             show();
             setPage(s.remove(Params::SHOW_PAGE).toInt());
+        }else if(s == Params::START_TUNNEL){
+            startTunnel();
+        }else if(s == Params::STOP_TUNNEL){
+            stopTunnel();
+        }else if(s == Params::TOGGLE_TUNNEL){
+            startStopTunnel();
+        }else if(s == Params::QUIT_APP){
+            stopTunnel();
+            close();
+            process->kill();
+            exit(0);
         }
     }
 }
-
 bool MainWindow::close(){
     ui->actionToggleWindow->setText(tr("Show"));
     QMainWindow::close();
@@ -431,9 +445,13 @@ void MainWindow::startStopTunnel(){
     if(process->state() == QProcess::NotRunning){
         startTunnel();
     }else{
-        process->terminate();
-        timerConnecting.singleShot(1000, process, SLOT(kill()));
+        stopTunnel();
     }
+}
+
+void MainWindow::stopTunnel(){
+    process->terminate();
+    timerConnecting.singleShot(1000, process, SLOT(kill()));
 }
 
 
