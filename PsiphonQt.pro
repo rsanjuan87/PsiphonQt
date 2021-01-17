@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
+    src/objects/countrydata.cpp \
     src/proxysetter.cpp
 
 HEADERS += \
@@ -25,6 +26,7 @@ HEADERS += \
     src/Params.h \
     src/defs.h \
     src/mainwindow.h \
+    src/objects/countrydata.h \
     src/proxysetter.h
 
 FORMS += \
@@ -37,7 +39,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES += src/resources.qrc
+RESOURCES += src/resources.qrc \
+    src/objects/countrydata.qrc
 
 macx: QMAKE_INFO_PLIST = src/res/Info.plist
 macx: ICON = src/imgs/Icon.icns

@@ -121,6 +121,8 @@ private slots:
     void detectSetWindowsTheme();
     QImage getImageTrayIcon();
     void updateRegions();
+    void on_btnCountryFlag_clicked();
+
 private:
     Ui::MainWindow *ui;
 

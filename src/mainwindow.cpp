@@ -6,6 +6,8 @@
 #include "Params.h"
 
 #include <QDir>
+
+#include <src/objects/countrydata.h>
 #define DETECT_TRAY_BG_COLOR "detect"
 
 MainWindow::MainWindow(QProcess *process, QSystemTrayIcon *tray, QMenu *menu, QWidget *parent) :
@@ -252,6 +254,7 @@ void MainWindow::setTunnelConnected(){
     if(ui->chkSetProxyConfig->isChecked())
         systemProxy->setProxy();
     ui->tab_config->setEnabled(false);
+    ui->btnCountryFlag->setEnabled(false);
 }
 
 
@@ -264,6 +267,7 @@ void MainWindow::setTunnelConnecting(){
     ui->lblCnxStatus->setText(tr("Connecting"));
     ui->logsview->appendPlainText(tr("Connecting"));
     ui->tab_config->setEnabled(false);
+    ui->btnCountryFlag->setEnabled(false);
 }
 
 void MainWindow::setTunelStoped(int){
@@ -282,12 +286,15 @@ void MainWindow::setTunelStoped(int){
     tray->setIcon(icon);
     ui->logsview->appendPlainText(tr("Disconnected"));
     ui->tab_config->setEnabled(true);
+    ui->btnCountryFlag->setEnabled(true);
 }
 
 void MainWindow::updateRegions(){
     ui->cmbRegions->clear();
-    ui->cmbRegions->addItems(QStringList(tr("Faster")));
-    ui->cmbRegions->addItems(regionsList);
+    ui->cmbRegions->addItem(QIcon(":/imgs/fastCountry"),tr("Fastest"));
+    for(QString s: regionsList){
+        ui->cmbRegions->addItem(QIcon(CountryData::iso2flag(s)), CountryData::iso2name(s));
+    }
 }
 
 void MainWindow::readout(){
@@ -506,9 +513,11 @@ void MainWindow::readTunelConfig(){
         ui->editLocalHttpPort->setValue(json["LocalHttpProxyPort"].toInt());
     }
 
-    QString t = json["EgressRegion"].toString();
-    int i = regionsList.indexOf(t);
-    ui->cmbRegions->setCurrentIndex(t.isEmpty()?0:i+1);
+    QString iso = json["EgressRegion"].toString();
+    int i = regionsList.indexOf(iso);
+    ui->cmbRegions->setCurrentIndex(iso.isEmpty()?0:i+1);
+    ui->btnCountryFlag->setIcon(QIcon(iso==0 ? ":/imgs/fastCountry"
+                                           : CountryData::iso2flag(iso)));
 }
 
 void MainWindow::readAppConfig(){
@@ -616,8 +625,11 @@ void MainWindow::writeTunelConfig(){
     json["LocalSocksProxyPort"] = ui->editLocalSocksPort->value();
     json["LocalHttpProxyPort"] = ui->editLocalHttpPort->value();
 
-    QString t = ui->cmbRegions->currentText();
-    json["EgressRegion"] = ui->cmbRegions->currentIndex()==0?"":t;
+    int t = ui->cmbRegions->currentIndex();
+    QString iso = regionsList.at(t-1);
+    json["EgressRegion"] = t==0?"":iso;
+    ui->btnCountryFlag->setIcon(QIcon(t==0 ? ":/imgs/fastCountry"
+                                           : CountryData::iso2flag(iso)));
 
     QJsonDocument saveDoc(json);
     saveFile.resize(0);
@@ -1080,4 +1092,10 @@ void MainWindow::on_btnSaveLogs_clicked()
 void MainWindow::on_chkSetProxyConfig_clicked()
 {
     writeAppConfig();
+}
+
+void MainWindow::on_btnCountryFlag_clicked()
+{
+    setPage(2);
+    ui->cmbRegions->showPopup();
 }

@@ -18,5 +18,6 @@
         <file>res/setProxy.sh</file>
         <file>res/deepin.qss</file>
         <file>imgs/detect.png</file>
+        <file>imgs/fastCountry.png</file>
     </qresource>
 </RCC>
