@@ -8,7 +8,7 @@
 #include <QDir>
 #include "qautostart.h"
 
-#if defined (Q_OS_WIN)
+#ifdef Q_OS_WIN
 #define REG_KEY "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
 
 bool QAutostart::isAutostart() const {

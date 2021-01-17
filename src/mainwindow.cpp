@@ -3,8 +3,10 @@
 #include "ui_mainwindow.h"
 #include "defs.h"
 #include "CoreProcessControler.h"
+#include "Params.h"
 
 #include <QDir>
+#define DETECT_TRAY_BG_COLOR "detect"
 
 MainWindow::MainWindow(QProcess *process, QSystemTrayIcon *tray, QMenu *menu, QWidget *parent) :
     QMainWindow(parent),
@@ -49,7 +51,7 @@ MainWindow::MainWindow(QProcess *process, QSystemTrayIcon *tray, QMenu *menu, QW
         on_chkTrayDialog_clicked();
     }
 
-#if defined (Q_OS_MAC)
+#ifdef Q_OS_MACOS
        QList<QString> list;
        QDir d = QFileInfo(qApp->applicationFilePath()).absoluteDir();
        d.cdUp();
@@ -73,8 +75,6 @@ MainWindow::MainWindow(QProcess *process, QSystemTrayIcon *tray, QMenu *menu, QW
     setMenuBar(new QMenuBar);
     ui->chkHideFromDockMac->setVisible(false);
 #endif
-    systemProxy = new ProxySetter("123", "321");
-    systemProxy->setProxy();
     detectSetWindowsTheme();
 
 }
@@ -128,39 +128,53 @@ void MainWindow::createIconsMenu(){
     wid2 = new QWidgetAction(iconMenu);
     wid3 = new QWidgetAction(iconMenu);
     wid4 = new QWidgetAction(iconMenu);
+    wid5 = new QWidgetAction(iconMenu);
     btn1 = new QToolButton(iconMenu);
     btn2 = new QToolButton(iconMenu);
     btn3 = new QToolButton(iconMenu);
     btn4 = new QToolButton(iconMenu);
+    btn5 = new QToolButton(iconMenu);
     btn1->setToolButtonStyle(Qt::ToolButtonIconOnly);
     btn2->setToolButtonStyle(Qt::ToolButtonIconOnly);
     btn3->setToolButtonStyle(Qt::ToolButtonIconOnly);
     btn4->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    btn5->setToolButtonStyle(Qt::ToolButtonIconOnly);
     btn1->setToolTip(":/imgs/on.png");
     btn2->setToolTip(":/imgs/logo.png");
     btn3->setToolTip(":/imgs/dark.png");
     btn4->setToolTip(":/imgs/light.png");
+    btn5->setToolTip(DETECT_TRAY_BG_COLOR);
+
     btn1->setIconSize(QSize(32, 32));
     btn1->setIcon(QIcon(":/imgs/on.png"));
     wid1->setDefaultWidget(btn1);
     iconMenu->addAction(wid1);
+
     btn2->setIconSize(QSize(32, 32));
     btn2->setIcon(QIcon(":/imgs/logo.png"));
     wid2->setDefaultWidget(btn2);
     iconMenu->addAction(wid2);
+
     btn3->setIconSize(QSize(32, 32));
     btn3->setIcon(QIcon(":/imgs/dark.png"));
     wid3->setDefaultWidget(btn3);
     iconMenu->addAction(wid3);
+
     btn4->setIconSize(QSize(32, 32));
     btn4->setIcon(QIcon(":/imgs/light.png"));
     wid4->setDefaultWidget(btn4);
     iconMenu->addAction(wid4);
 
+    btn5->setIconSize(QSize(32, 32));
+    btn5->setIcon(QIcon(":/imgs/detect.png"));
+    wid5->setDefaultWidget(btn5);
+    iconMenu->addAction(wid5);
+
     signaler.installOn(btn1);
     signaler.installOn(btn2);
     signaler.installOn(btn3);
     signaler.installOn(btn4);
+    signaler.installOn(btn5);
 
     ui->btnIconLogo->setMenu(iconMenu);
 }
@@ -183,6 +197,10 @@ void MainWindow::onGeneralClick(QWidget *widget, QMouseEvent *event){
             writeAppConfig();
         }else if(widget == btn4){
             setIcon(btn4->toolTip());
+            iconMenu->close();
+            writeAppConfig();
+        }else if(widget == btn5){
+            setIcon(btn5->toolTip());
             iconMenu->close();
             writeAppConfig();
         }
@@ -208,10 +226,10 @@ void MainWindow::onGeneralClick(QWidget *widget, QMouseEvent *event){
 }
 
 void MainWindow::timerTick(){
-    QIcon icon =  QPixmap::fromImage(setOpacity( QImage(trayIcon), 0.3));
+    QIcon icon =  QPixmap::fromImage(setOpacity( getImageTrayIcon(), 0.3));
     ui->logo->setPixmap(QPixmap(":/imgs/on"));
     if (QTime::currentTime().second()%2==0){
-        icon =  QPixmap::fromImage(setOpacity( gray(QImage(trayIcon)), 0.3));
+        icon =  QPixmap::fromImage(setOpacity( gray(getImageTrayIcon()), 0.3));
         ui->logo->setPixmap(QPixmap(":/imgs/normal"));
     }
         qApp->setWindowIcon(icon);
@@ -253,7 +271,7 @@ void MainWindow::setTunelStoped(int){
         systemProxy->restoreProxy();
     wasConnected = false;
     timerConnecting.stop();
-    QIcon icon =  QPixmap::fromImage(setOpacity( gray(QImage(trayIcon)), 0.3));
+    QIcon icon =  QPixmap::fromImage(setOpacity( gray(getImageTrayIcon()), 0.3));
     qApp->setWindowIcon(icon);
 //    ui->btnStartStop->setText(tr("Connect"));
     ui->logo->setPixmap(QPixmap(":/imgs/off"));
@@ -325,7 +343,6 @@ void MainWindow::readout(){
                        break;
                    }
                }
-        qDebug() << line;
     }
     ui->logsview->appendPlainText(readed);
 
@@ -347,7 +364,7 @@ void MainWindow::show(){
     ui->actionToggleWindow->setText(tr("Hide"));
     ui->tabWidget->setCurrentWidget(ui->tab_main);
     if (ui->chkTrayDialog->isChecked()) {
-        popup(QSystemTrayIcon::Trigger);
+        popup(QSystemTrayIcon::MiddleClick);
     }else{
         QMainWindow::show();
         QRect screenGeometry = QApplication::primaryScreen()->geometry();
@@ -359,14 +376,19 @@ void MainWindow::show(){
     detectSetWindowsTheme();
 }
 
-void MainWindow::receivedMessage(quint32 instanceId, QByteArray message)
+void MainWindow::parceReceivedMessage(quint32 instanceId, QByteArray message)
 {
     Q_UNUSED(instanceId);
-    QList<QString> list = QString(message).split(' ');
+    QString msg = QString(message).remove(qApp->applicationFilePath());
+    if(msg == Params::FROM_SECOND){
+        tray->showMessage(qAppName(), tr("Ya está en ejecución"));
+        return;
+    }
+    QList<QString> list = msg.remove(Params::FROM_SECOND).split(' ');
     for(QString s: list){
-        if(s.startsWith("--show-")){
+        if(s.startsWith(Params::SHOW_PAGE)){
             show();
-            setPage(s.remove("--show-").toInt());
+            setPage(s.remove(Params::SHOW_PAGE).toInt());
         }
     }
 }
@@ -381,7 +403,6 @@ bool MainWindow::close(){
 void MainWindow::startStopTunnel(){
     QList<QString> list;
     list << "-config" << configPath;
-    qDebug() << tunelCorePath << list;
     if(process->state() == QProcess::NotRunning){
         startTunnel();
     }else{
@@ -395,7 +416,6 @@ void MainWindow::startTunnel(){
     disconnect(process, SIGNAL(finished(int)), this, SLOT(startTunnel()));
     QList<QString> list;
     list << "-config" << configPath;
-    qDebug() << tunelCorePath << list;
     if(!QFile::exists(tunelCorePath)){
         tray->showMessage(qAppName(), tr("Core executable not found"));
         ui->logsview->appendPlainText(tr("Core executable not found, please set custom core executable "));
@@ -411,7 +431,7 @@ void MainWindow::startTunnel(){
 void MainWindow::loadconfig(){
     tunelCorePath = QApplication::applicationDirPath()+"/core";
     configPath = Defs::tunelConfigFilePath();
-    trayIcon = ":/imgs/logo.png";
+    trayIcon = DETECT_TRAY_BG_COLOR;
 
     ui->chkShowWindowOnStart->setChecked(true);
     ui->chkTunnelNotifications->setChecked(true);
@@ -513,6 +533,9 @@ void MainWindow::readAppConfig(){
         ui->chkStratupOnLogin->setChecked(QAutostart().isAutostart());
         ui->chkTrayDialog->setChecked(json["TrayDialog"].toBool());
         ui->chkTunnelNotifications->setChecked(json["TunnelNotifications"].toBool());
+        if(json.contains("noShowScreenCapPermission") ){
+            noShowScreenCapPermission = json["noShowScreenCapPermission"].toBool();
+        }
         setTrayMenu(false);
     }
     if(!QFileInfo::exists(configPath)){
@@ -528,7 +551,8 @@ void MainWindow::readAppConfig(){
           file.close();
     }
 
-    ui->btnIconLogo->setIcon(QIcon(trayIcon));
+    ui->btnIconLogo->setIcon(QIcon(trayIcon==DETECT_TRAY_BG_COLOR ? QString(":/imgs/detect")
+                                                       : QPixmap::fromImage(getImageTrayIcon())));
     tray->show();
     if(ui->chkShowWindowOnStart->isChecked()){
         setPage(0);
@@ -607,6 +631,7 @@ void MainWindow::writeAppConfig(){
     json["showWindowOnStart"]= ui->chkShowWindowOnStart->isChecked();
     json["TrayDialog"]= ui->chkTrayDialog->isChecked();
     json["TunnelNotifications"]= ui->chkTunnelNotifications->isChecked();
+    json["noShowScreenCapPermission"]= noShowScreenCapPermission;
 
     QJsonDocument saveDoc(json);
     saveFile.resize(0);
@@ -730,20 +755,83 @@ QImage MainWindow::setOpacity(QImage image, qreal opacity){
     return newImg;
 }
 
-void MainWindow::on_btnIconLogo_clicked()
-{
-    setIcon(":/imgs/logo.png");
-}
-
 void MainWindow::setIcon(QString icon){
-    ui->btnIconLogo->setIcon(QIcon(icon));
     trayIcon = icon;
+    ui->btnIconLogo->setIcon(QIcon(trayIcon==DETECT_TRAY_BG_COLOR ? QString(":/imgs/detect")
+                                                       : QPixmap::fromImage(getImageTrayIcon())));
     writeAppConfig();
     if(process->state() == QProcess::NotRunning){
         setTunelStoped();
     }else{
         if(!timerConnecting.isActive())
             setTunnelConnected();
+    }
+}
+
+QImage MainWindow::getImageTrayIcon(){
+    if(trayIcon == DETECT_TRAY_BG_COLOR){
+        //todo
+        QScreen *screen = QGuiApplication::primaryScreen();
+        if (const QWindow *window = windowHandle())
+            screen = window->screen();
+        if (NULL == screen) {
+#ifdef Q_OS_MACOS
+            if (!noShowScreenCapPermission && askPermission != QMessageBox::Cancel){
+                QMessageBox msgBox;
+                 msgBox.setText(tr("Se necesita el permiso de captura de pantalla"));
+                 msgBox.setInformativeText(tr("Abrir preferencias para otorfar el permiso"));
+                 msgBox.setDetailedText(tr("Este permiso es necesitado para detectar el color del fondo detrás del icono de estado o notificación"));
+                 msgBox.setIcon(QMessageBox::Question);
+                 msgBox.setStandardButtons(QMessageBox::Open | QMessageBox::Cancel);
+                 msgBox.setDefaultButton(QMessageBox::Open);
+                 QPushButton *connectButton = msgBox.addButton(tr("Nunca"), QMessageBox::ActionRole);
+
+                 askPermission = msgBox.exec();
+
+                 if (msgBox.clickedButton() == connectButton) {
+                     noShowScreenCapPermission = true;
+                     writeAppConfig();
+                 }else if (askPermission == QMessageBox::Open) {
+                     system("open \"x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture\"");
+                     QMessageBox wait;
+                     wait.setText(tr("En espera del permiso necesario"));
+                     wait.setInformativeText(tr("Presione 'Aceptar' cuando lo haya otorgado"));
+                     wait.setModal(Qt::ApplicationModal);
+                     wait.setIcon(QMessageBox::Warning);
+                     wait.exec();
+                     return getImageTrayIcon();
+                 }
+            }
+#endif
+            return QImage(":/imgs/light.png");
+        }else{
+            screen->grabWindow(0).save(QDir::homePath()+"/image.png");
+                QImage img = screen->grabWindow(0).toImage();
+                QPair<Position, int> p = getWinTaskbarData();
+                QColor bg;
+                QPoint c = QPoint(2,2);
+                switch (p.first) {
+                case BOTTOM:
+                    bg = img.pixel(c.x(), img.height()-2);
+                    break;
+                case RIGHT:
+                    bg = img.pixel(img.width()-2, c.y());
+                    break;
+                case TOP:
+                    bg = img.pixel(c.x(), 2);
+                    break;
+                case LEFT:
+                    bg = img.pixel(2, c.y());
+                    break;
+                }
+                if(bg.red()>127 && bg.green() > 127 && bg.blue() > 127){
+                    return QImage(":/imgs/dark.png");
+                }else{
+                    return QImage(":/imgs/light.png");
+                }
+        }
+    }else {
+        return QImage(trayIcon);
     }
 }
 
@@ -810,11 +898,12 @@ void MainWindow::setTrayMenu(bool showPage){
         setCentralWidget(ui->centralwidget);
         if(showPage)
             setPage(3);
-        disconnect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(popup(QSystemTrayIcon::ActivationReason)));
+        disconnect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+                   this, SLOT(popup(QSystemTrayIcon::ActivationReason)));
     }else{
         widPopup->setDefaultWidget(ui->centralwidget);
         winPopup->addAction(widPopup);
-#if defined (Q_OS_MAC)
+#ifdef Q_OS_MACOS
         tray->setContextMenu(winPopup);
 #endif
         if(showPage){
@@ -822,8 +911,9 @@ void MainWindow::setTrayMenu(bool showPage){
             close();
         }
     }
-#if not defined (Q_OS_MAC)
-       connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(popup(QSystemTrayIcon::ActivationReason)));
+#ifndef Q_OS_MACOS
+       connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+               this, SLOT(popup(QSystemTrayIcon::ActivationReason)));
 #endif
 }
 
@@ -831,19 +921,16 @@ void MainWindow::popup(QSystemTrayIcon::ActivationReason reason){
     if (reason == QSystemTrayIcon::Context)
         return;
     if (ui->chkTrayDialog->isChecked()) {
-
+#ifndef Q_OS_MACOS
             QScreen *screen = QGuiApplication::primaryScreen();
             if (const QWindow *window = windowHandle())
                 screen = window->screen();
             if (!screen)
                 return;
-
-
-#if not defined (Q_OS_MAC)
             QImage img = screen->grabWindow(0).toImage();
-            QPair<Position, int> p = getTaskData();
-            QPoint c = QCursor::pos();
+            QPair<Position, int> p = getWinTaskbarData();
             QColor bg;
+            QPoint c = QCursor::pos();
             switch (p.first) {
             case BOTTOM:
                 bg = img.pixel(c.x(), img.height()-4);
@@ -864,7 +951,7 @@ void MainWindow::popup(QSystemTrayIcon::ActivationReason reason){
             }else{
                 fg = Qt::white;
             }
-#if defined (Q_OS_WIN)
+#ifdef Q_OS_WIN
             QOperatingSystemVersion version = QOperatingSystemVersion::current();
             QString path = ":/res/winpopup8.qss";
             if(version.majorVersion()==6 && version.minorVersion()==1)
@@ -914,7 +1001,7 @@ void MainWindow::on_chkTunnelNotifications_clicked()
     writeAppConfig();
 }
 
-QPair<MainWindow::Position, int> MainWindow::getTaskData(){
+QPair<MainWindow::Position, int> MainWindow::getWinTaskbarData(){
     QPair<MainWindow::Position, int> data;
     const QRect displayRect = QGuiApplication::primaryScreen()->geometry();
     const QRect deskRect = QGuiApplication::primaryScreen()->availableGeometry();

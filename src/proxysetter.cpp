@@ -14,10 +14,7 @@ ProxySetter::ProxySetter(QString httpPort, QString sockPort)
 
 }
 
-#if defined (Q_OS_MAC)
-
-void ProxySetter::setProxy(){
-    /// set in zsh
+void ProxySetter::exportShellSetter(){
 
     QFile file(":/res/setProxy.bash");
     file.open(QFile::ReadOnly);
@@ -29,10 +26,23 @@ void ProxySetter::setProxy(){
     file.resize(0);
     file.write(bash.toUtf8());
     file.close();
+    system(("chmod +X "+Defs::configDirPath()+"/setProxy.bash").toUtf8());
+}
 
-    file.setFileName("/.zprofile");
+#ifdef Q_OS_MAC
+
+void ProxySetter::setProxy(){
+    /// set in zsh
+
+    exportShellSetter();
+    QFile file(QDir::homePath()+"/.zprofile");
     file.open(QFile::Append);
-    file.write("~/.PsiphonQt/setProxy.bash ###PsiphonQt");
+    file.write("\n"+Defs::configDirPath().toUtf8()+"/setProxy.bash ###PsiphonQt\n");
+    file.close();
+
+    file.setFileName(QDir::homePath()+"/.bash_profile");
+    file.open(QFile::Append);
+    file.write("\n"+Defs::configDirPath().toUtf8()+"/setProxy.bash ###PsiphonQt\n");
     file.close();
 
     QString interface;
@@ -46,7 +56,6 @@ void ProxySetter::setProxy(){
             break;
         }
     }
-    qDebug() << "active interface" << interface;
     p.start("networksetup -listnetworkserviceorder ");
     p.waitForFinished();
     QStringList list = QString(p.readAllStandardOutput()).split('\n');
@@ -56,7 +65,6 @@ void ProxySetter::setProxy(){
             break;
         }
     }
-    qDebug() << "active interface name" << interface;
 
     p.start("scutil --proxy");
     p.waitForFinished();
@@ -120,7 +128,7 @@ void ProxySetter::restoreProxy(){
     /// set in zsh
     QFile file(QDir::homePath()+"/.zprofile");
     file.open(QFile::ReadWrite);
-    QString text = QString(file.readAll()).remove("\n~/.PsiphonQt/setProxy.bash ###PsiphonQt");
+    QString text = QString(file.readAll()).remove("\n"+Defs::configDirPath()+"/setProxy.bash ###PsiphonQt");
     file.resize(0);
     file.write(text.toUtf8());
     file.close();
@@ -165,7 +173,6 @@ void ProxySetter::setProxy(){
 void ProxySetter::restoreProxy(){
         QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Internet Settings", QSettings::NativeFormat);
         ProxyConf systemProxy = confList->take("system");
-        qDebug() << systemProxy.toString();
         settings.setValue("ProxyServer", systemProxy.host);
         settings.setValue("ProxyEnable", systemProxy.status.toInt());
         settings.setValue("ProxyUser", systemProxy.user);
@@ -179,20 +186,11 @@ void ProxySetter::restoreProxy(){
 void ProxySetter::setProxy(){
 //    set in bash
 
-    QFile file(":/res/setProxy.bash");
-    file.open(QFile::ReadOnly);
-    QString bash = QString(file.readAll()).replace("$$PORT$$", httpPort);
-    file.close();
+    exportShellSetter();
 
-    file.setFileName(Defs::configDirPath()+"/setProxy.bash");
-    file.open(QFile::WriteOnly);
-    file.resize(0);
-    file.write(bash.toUtf8());
-    file.close();
-
-    file.setFileName(QDir::homePath()+"/.bash_profile");
+    QFile file(QDir::homePath()+"/.bash_profile");
     file.open(QFile::Append);
-    file.write("~/.PsiphonQt/setProxy.bash ###PsiphonQt");
+    file.write("\n"+Defs::configDirPath().toUtf8()+"/setProxy.bash ###PsiphonQt\n");
     file.close();
 
     QString desk = qgetenv("XDG_CURRENT_DESKTOP");
@@ -212,7 +210,7 @@ void ProxySetter::restoreProxy(){
 
         QFile file(QDir::homePath()+"/.bash_profile");
         file.open(QFile::ReadWrite);
-        QString text = QString(file.readAll()).remove("\n~/.PsiphonQt/setProxy.bash ###PsiphonQt");
+        QString text = QString(file.readAll()).remove("\n"+Defs::configDirPath()+"/setProxy.bash ###PsiphonQt");
         file.resize(0);
         file.write(text.toUtf8());
         file.close();
@@ -362,7 +360,7 @@ void ProxySetter::restoreProxyGnome(){
 
 
 //void ProxySetter::setProxy(){
-//#if defined (Q_OS_MAC)
+//#ifdef Q_OS_MAC)
 //    setProxyMac();
 //#elif defined (Q_OS_WIN)
 //    setProxyWin();
@@ -372,7 +370,7 @@ void ProxySetter::restoreProxyGnome(){
 //}
 
 //void ProxySetter::restoreProxy(){
-//#if defined (Q_OS_MAC)
+//#ifdef Q_OS_MAC)
 //    restoreProxyMac();
 //#elif defined (Q_OS_WIN)
 //    restoreProxyWin();

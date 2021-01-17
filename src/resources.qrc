@@ -17,5 +17,6 @@
         <file>res/setProxy.bash</file>
         <file>res/setProxy.sh</file>
         <file>res/deepin.qss</file>
+        <file>imgs/detect.png</file>
     </qresource>
 </RCC>

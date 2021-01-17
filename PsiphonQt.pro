@@ -22,6 +22,7 @@ SOURCES += \
 
 HEADERS += \
     src/CoreProcessControler.h \
+    src/Params.h \
     src/defs.h \
     src/mainwindow.h \
     src/proxysetter.h

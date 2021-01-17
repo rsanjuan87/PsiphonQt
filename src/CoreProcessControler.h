@@ -24,7 +24,7 @@ bool CoreControler::coreIsRunning(QString path){
 
 QString CoreControler::corePid(QString path){
     QProcess p;
-#if not defined (Q_OS_WIN)
+#ifndef Q_OS_WIN
     p.start("ps aux");
     p.waitForFinished();
     QString out =  p.readAllStandardOutput();
@@ -39,10 +39,8 @@ QString CoreControler::corePid(QString path){
     p.start("tasklist /fi \"IMAGENAME eq "+path+"\" /nh /fo:CSV");
     p.waitForFinished();
     QString out = p.readAllStandardOutput();
-    qDebug() << out;
     if (out.contains(",")) {
         qDebug() << "este "<< out.split(",").at(1).simplified();
-        return out.split(",").at(1).simplified();
     } else {
         return "";
     }
@@ -52,7 +50,7 @@ QString CoreControler::corePid(QString path){
 
 void CoreControler::killCore(QString path){
     QProcess p;
-#if not defined (Q_OS_WIN)
+#ifndef Q_OS_WIN
     p.start("kill -kill "+ corePid(path));
 #else
     p.start("taskkill /pid " +corePid(path));

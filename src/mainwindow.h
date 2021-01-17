@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include "proxysetter.h"
@@ -58,7 +58,7 @@ public slots:
 
     bool close();
     void show();
-    void receivedMessage( quint32 instanceId, QByteArray message );
+    void parceReceivedMessage( quint32 instanceId, QByteArray message );
     void setVisible(bool visible);
 private slots:
     void startStopTunnel();
@@ -83,7 +83,6 @@ private slots:
     void timerTick();
     QImage setOpacity(QImage image, qreal opacity);
     void setIcon(QString icon);
-    void on_btnIconLogo_clicked();
 
     void on_btnAbout_clicked();
 
@@ -111,7 +110,7 @@ private slots:
 
     void onGeneralClick(QWidget *widget, QMouseEvent *event);
     void createIconsMenu();
-    QPair<Position, int> getTaskData();
+    QPair<Position, int> getWinTaskbarData();
     void on_btnClearLogs_clicked();
 
     void on_btnSaveLogs_clicked();
@@ -120,6 +119,7 @@ private slots:
 
     void startTunnel();
     void detectSetWindowsTheme();
+    QImage getImageTrayIcon();
 private:
     Ui::MainWindow *ui;
 
@@ -143,11 +143,15 @@ private:
     QWidgetAction *wid2;
     QWidgetAction *wid3;
     QWidgetAction *wid4;
+    QWidgetAction *wid5;
     QToolButton *btn1;
     QToolButton *btn2;
     QToolButton *btn3;
     QToolButton *btn4;
+    QToolButton *btn5;
     bool wasConnected = false;
+    bool noShowScreenCapPermission = false;
+    int askPermission =  QMessageBox::Open;
 
     ProxySetter *systemProxy;
 };
