@@ -6,6 +6,7 @@
 #include "Params.h"
 
 #include <QDir>
+#include <QDesktopWidget>
 
 #include <src/objects/countrydata.h>
 #define DETECT_TRAY_BG_COLOR "detect"
@@ -836,7 +837,8 @@ void MainWindow::setIcon(QString icon){
 
 QImage MainWindow::getImageTrayIcon(){
     if(trayIcon == DETECT_TRAY_BG_COLOR){
-        QScreen *screen = QGuiApplication::primaryScreen();
+
+        QScreen *screen = qApp->primaryScreen();
         if (const QWindow *window = windowHandle())
             screen = window->screen();
         if (NULL == screen) {
@@ -870,7 +872,8 @@ QImage MainWindow::getImageTrayIcon(){
 #endif
             return QImage(":/imgs/light.png");
         }else{
-                QImage img = screen->grabWindow(0).toImage();
+                QSize s = screen->size();
+                QImage img = screen->grabWindow(0,0,0,s.width(),s.height()).toImage();
                 QPair<Position, int> p = getWinTaskbarData();
                 QColor bg;
                 QPoint c = QPoint(2,2);
