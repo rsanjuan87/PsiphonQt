@@ -596,8 +596,7 @@ void MainWindow::readAppConfig(){
 
         setTrayMenu(false);
     }
-    if(!QFileInfo::exists(configPath)){
-          QFile r(":/res/config.json");
+          QFile r(!QFileInfo::exists(configPath)?":/res/config.json":configPath);
           r.open(QFile::ReadOnly);
           QString config = r.readAll();
           QDir().mkpath(QFileInfo(configPath).dir().path());
@@ -607,7 +606,6 @@ void MainWindow::readAppConfig(){
               file.write(config.toUtf8());
           }
           file.close();
-    }
 
     ui->btnIconLogo->setIcon(QIcon(trayIcon==DETECT_TRAY_BG_COLOR ? QString(":/imgs/detect")
                                                        : QPixmap::fromImage(getImageTrayIcon())));
