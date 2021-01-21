@@ -113,7 +113,7 @@ public:
     QLabel *logo_2;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_3;
-    QLabel *label_9;
+    QLabel *version;
     QLabel *label_11;
     QLabel *label_12;
     QLabel *label_13;
@@ -518,10 +518,10 @@ public:
 
         verticalLayout_2->addWidget(label_3);
 
-        label_9 = new QLabel(tabAbout);
-        label_9->setObjectName(QString::fromUtf8("label_9"));
+        version = new QLabel(tabAbout);
+        version->setObjectName(QString::fromUtf8("version"));
 
-        verticalLayout_2->addWidget(label_9);
+        verticalLayout_2->addWidget(version);
 
         label_11 = new QLabel(tabAbout);
         label_11->setObjectName(QString::fromUtf8("label_11"));
@@ -586,7 +586,7 @@ public:
         QObject::connect(chkProxyAuth, SIGNAL(toggled(bool)), editProxyUser, SLOT(setEnabled(bool)));
         QObject::connect(chkProxyAuth, SIGNAL(toggled(bool)), editProxyPass, SLOT(setEnabled(bool)));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(4);
         btnSaveTunnelConfig->setDefault(true);
 
 
@@ -640,7 +640,7 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(tab_settings), QApplication::translate("MainWindow", "Config", nullptr));
         logo_2->setText(QString());
         label_3->setText(QApplication::translate("MainWindow", "PsiphonQt", nullptr));
-        label_9->setText(QApplication::translate("MainWindow", "Version 1.0", nullptr));
+        version->setText(QApplication::translate("MainWindow", "Version 1.0", nullptr));
         label_11->setText(QApplication::translate("MainWindow", "Created 2020, 16-11", nullptr));
         label_12->setText(QApplication::translate("MainWindow", "<html><head/><body><p>by <a href=\"https://github.com/rsanjuan87/\"><span style=\" text-decoration: underline; color:#0068da;\">rsanjuan87</span></a></p></body></html>", nullptr));
         label_13->setText(QApplication::translate("MainWindow", "The program is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.", nullptr));

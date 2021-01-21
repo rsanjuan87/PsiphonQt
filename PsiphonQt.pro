@@ -48,7 +48,8 @@ macx: ICON = src/imgs/Icon.icns
 
 #win32: RC_FILE += src/res/win.rc
 win32: RC_ICONS += src/imgs/Icon.ico
-VERSION = 1.0
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+
 QMAKE_TARGET_COMPANY = SanJuanTech
 QMAKE_TARGET_DESCRIPTION = "A Psiphon very cute and for all. http://github.com/rsanjuan87/PsiphonQt"
 QMAKE_TARGET_COPYRIGHT = "GPL v3 AS IS SanJuanTech"

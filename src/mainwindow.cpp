@@ -80,6 +80,8 @@ MainWindow::MainWindow(QProcess *process, QSystemTrayIcon *tray, QMenu *menu, QW
 #endif
     detectSetWindowsTheme();
 
+    ui->version->setText(tr("Versión: ")+VERSION);
+
 }
 
 void MainWindow::detectSetWindowsTheme(){
@@ -243,14 +245,11 @@ void MainWindow::setTunnelConnected(){
     QIcon icon(trayIcon);
     qApp->setWindowIcon(icon);
     tray->setIcon(icon);
-    ////TODO si esta conectado no mostrar la notificacion
-//    ui->btnStartStop->setText(tr("Stop"));
     ui->logo->setPixmap(QPixmap(":/imgs/on"));
     ui->actionConnect->setText(tr("Stop"));
     ui->lblCnxStatus->setText(tr("Connected"));
     if(ui->chkTunnelNotifications->isChecked())
         tray->showMessage(qAppName(), tr("Connected"), icon);
-    //ui->commandLinkButton->click();
     ui->logsview->appendPlainText(tr("Connected"));
     if(ui->chkSetProxyConfig->isChecked())
         systemProxy->setProxy();
@@ -261,7 +260,6 @@ void MainWindow::setTunnelConnected(){
 
 void MainWindow::setTunnelConnecting(){
     timerConnecting.start(300);
-//    ui->btnStartStop->setText(tr("Stop"));
     ui->actionConnect->setText(tr("Stop"));
     if(ui->chkTunnelNotifications->isChecked())
         tray->showMessage(qAppName(), tr("Connecting"));
@@ -278,7 +276,6 @@ void MainWindow::setTunelStoped(int){
     timerConnecting.stop();
     QIcon icon =  QPixmap::fromImage(setOpacity( gray(getImageTrayIcon()), 0.3));
     qApp->setWindowIcon(icon);
-//    ui->btnStartStop->setText(tr("Connect"));
     ui->logo->setPixmap(QPixmap(":/imgs/off"));
     ui->actionConnect->setText(tr("Connect"));
     ui->lblCnxStatus->setText(tr("Stoped"));

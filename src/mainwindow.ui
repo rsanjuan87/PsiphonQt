@@ -27,7 +27,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab_main">
        <property name="layoutDirection">
@@ -766,7 +766,7 @@ on connect or disconnect</string>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_9">
+             <widget class="QLabel" name="version">
               <property name="text">
                <string>Version 1.0</string>
               </property>

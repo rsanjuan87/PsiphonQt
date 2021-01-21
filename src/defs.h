@@ -1,6 +1,8 @@
 #ifndef DEFS_H
 #define DEFS_H
 
+#define VERSION "1.1"
+
 #include <QDir>
 
 class Defs

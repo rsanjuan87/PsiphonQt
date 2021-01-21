@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
         <key>NOTE</key>
-        <string>A Psiphon very cute and for all. http://github.com/rsanjuan87/PsiphonQt</string>
+        <string>A cute Psiphon for all. http://github.com/rsanjuan87/PsiphonQt</string>
         <key>CFBundleIdentifier</key>
         <string>san.org.PsiphonQt</string>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
