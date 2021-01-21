@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     QObject::connect(&app, SIGNAL(aboutToQuit()), &p, SLOT(terminate()));
     QObject::connect(&app, SIGNAL(aboutToQuit()), &p, SLOT(kill()));
 
-    menu.addAction("Quit", &app, SLOT(quit()));
+    menu.addAction("Quit", &w, SLOT(quit()));
     w.parceReceivedMessage(0, args.toUtf8());
 
     return app.exec();

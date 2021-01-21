@@ -586,7 +586,7 @@ public:
         QObject::connect(chkProxyAuth, SIGNAL(toggled(bool)), editProxyUser, SLOT(setEnabled(bool)));
         QObject::connect(chkProxyAuth, SIGNAL(toggled(bool)), editProxyPass, SLOT(setEnabled(bool)));
 
-        tabWidget->setCurrentIndex(4);
+        tabWidget->setCurrentIndex(0);
         btnSaveTunnelConfig->setDefault(true);
 
 

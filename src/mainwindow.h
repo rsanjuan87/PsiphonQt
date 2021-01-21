@@ -60,6 +60,7 @@ public slots:
     void show();
     void parceReceivedMessage( quint32 instanceId, QByteArray message );
     void setVisible(bool visible);
+    void quit();
 private slots:
     void startStopTunnel();
     void readout();

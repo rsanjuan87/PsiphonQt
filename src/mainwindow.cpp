@@ -423,10 +423,7 @@ void MainWindow::parceReceivedMessage(quint32 instanceId, QByteArray message)
         }else if(s == Params::TOGGLE_TUNNEL){
             startStopTunnel();
         }else if(s == Params::QUIT_APP){
-            stopTunnel();
-            close();
-            process->kill();
-            exit(0);
+            quit();
         }
     }
 }
@@ -699,13 +696,18 @@ void MainWindow::writeAppConfig(){
     saveFile.write(saveDoc.toJson());
 }
 
-
-void MainWindow::on_pushButton_2_clicked(){
+void MainWindow::quit(){
     if (process->state() != QProcess::NotRunning) {
-        startStopTunnel();
+        stopTunnel();
+        systemProxy->restoreProxy();
     }
     tray->hide();
     exit(0);
+}
+
+
+void MainWindow::on_pushButton_2_clicked(){
+    quit();
 }
 
 void MainWindow::on_btnSaveTunnelConfig_clicked(){
@@ -765,7 +767,7 @@ void MainWindow::askForReset(){
         QList<QString> list;
         list << "--show-3";
         QProcess::startDetached(qApp->applicationFilePath(), list);
-        qApp->quit();
+        quit();
     }
 }
 
