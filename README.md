@@ -105,20 +105,24 @@ A Psiphon GUI client in Qt, Cute Psiphon for All
     </tr>
   </table>
   
-  ## Probado en 
-  -MacOS BigSur 11
+  ## Operating systems tested 
   
-  -MacOS Calalina 10.15.7
+  - MacOS BigSur 11
   
-  -Ubuntu 20.04 Gnome 3 y Kde Plasma
+  - MacOS Calalina 10.15.7
   
-  -Manjaro 20.2 Kde 
+  - Ubuntu 20.04 Gnome 3 y Kde Plasma
   
-  -Deepin Commiunity 10.03
+  - Pop_OS 20.10
   
-  -Windows 10
+  - Manjaro 20.2 Kde 
   
-  -Windows 7
+  - Deepin Commiunity 10.03
+  
+  - Windows 10
+  
+  - Windows 7
 
  ## Support 
+  
   https://t.me/psiphonqt
