@@ -122,7 +122,7 @@ void MainWindow::detectSetWindowsTheme(){
 
 void MainWindow::setVisible(bool visible)
 {
-    ui->actionToggleWindow->setText(tr(visible? "Show":"Hide"));
+    ui->actionToggleWindow->setText(tr(!visible? "Show":"Hide"));
     QMainWindow::setVisible(visible);
 }
 
