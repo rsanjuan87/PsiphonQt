@@ -45,6 +45,8 @@ void ProxySetter::setProxy(){
     file.write("\n"+Defs::configDirPath().toUtf8()+"/setProxy.bash ###PsiphonQt\n");
     file.close();
 
+    system("chmod +X "+ Defs::configDirPath().toUtf8()+"/setProxy.bash");
+
     QString interface;
     QProcess p;
     p.start("scutil --nwi");
@@ -192,6 +194,9 @@ void ProxySetter::setProxy(){
     file.open(QFile::Append);
     file.write("\n"+Defs::configDirPath().toUtf8()+"/setProxy.bash ###PsiphonQt\n");
     file.close();
+
+
+    system("chmod +X "+ Defs::configDirPath().toUtf8()+"/setProxy.bash");
 
     QString desk = qgetenv("XDG_CURRENT_DESKTOP");
 
