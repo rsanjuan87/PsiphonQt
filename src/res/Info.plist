@@ -15,7 +15,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Created by Qt/QMake</string>
+        <string>A cute Psiphon for all. http://github.com/rsanjuan87/PsiphonQt</string>
 	<key>CFBundleExecutable</key>
         <string>PsiphonQt</string>
 	<key>CFBundlePackageType</key>

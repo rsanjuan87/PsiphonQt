@@ -19,5 +19,6 @@
         <file>res/deepin.qss</file>
         <file>imgs/detect.png</file>
         <file>imgs/fastCountry.png</file>
+        <file>res/win11.qss</file>
     </qresource>
 </RCC>

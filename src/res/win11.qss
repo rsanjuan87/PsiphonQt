@@ -1,0 +1,12 @@
+QMenu {
+   background-color: #ffffff;/*back*/
+   color: #001133;/*font*/
+   border-width: 1px;
+   border-color: #33555555;
+   border-style: solid;
+   padding: 5px;
+   min-width: 30ex;
+   min-height: 10ex;
+   color: #001133;
+   border-radius: 5px;
+}

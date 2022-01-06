@@ -927,11 +927,11 @@ void MainWindow::on_actionAbout_Qt_triggered()
 void MainWindow::on_commandLinkButton_clicked()
 {
 #ifdef Q_OS_MAC
-    QDesktopServices::openUrl(QUrl("https://sanmail.app/PsiphonQt/#mac"));
+    QDesktopServices::openUrl(QUrl("https://github.com/rsanjuan87/PsiphonQt/#mac"));
 #elif defined(Q_OS_WIN)
-    QDesktopServices::openUrl(QUrl("https://sanmail.app/PsiphonQt/#win"));
+    QDesktopServices::openUrl(QUrl("https://github.com/rsanjuan87/PsiphonQt/#win"));
 #else
-    QDesktopServices::openUrl(QUrl("https://sanmail.app/PsiphonQt/#linux"));
+    QDesktopServices::openUrl(QUrl("https://github.com/rsanjuan87/PsiphonQt/#linux"));
 #endif
 }
 
@@ -1020,8 +1020,10 @@ void MainWindow::popup(QSystemTrayIcon::ActivationReason reason){
             QString path = ":/res/winpopup8.qss";
             if(version.majorVersion()==6 && version.minorVersion()==1)
                 path = ":/res/winpopup7.qss" ;
-            else if (version.majorVersion()>=10)
+            else if (version.majorVersion()==10)
                 path = ":/res/winpopup.qss";
+            else if (version.majorVersion() > 10)
+                path = ":/res/win11.qss";
             QFile file(path);
             file.open(QFile::ReadOnly);
             QString styleSheet = QString::fromLatin1(file.readAll());
