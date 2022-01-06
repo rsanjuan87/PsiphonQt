@@ -60,8 +60,9 @@ int main(int argc, char *argv[])
 
     QObject::connect(&app, SIGNAL(aboutToQuit()), &p, SLOT(terminate()));
     QObject::connect(&app, SIGNAL(aboutToQuit()), &p, SLOT(kill()));
+#ifdef Q_OS_MACOS
     QObject::connect(&app, SIGNAL(clickedOnDock()), &w, SLOT(show()));
-
+#endif
     menu.addAction("Quit", &w, SLOT(quit()));
     w.parceReceivedMessage(0, args.toUtf8());
 
