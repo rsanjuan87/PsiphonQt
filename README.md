@@ -1,8 +1,18 @@
 
 # PsiphonQt
 A Psiphon GUI client in Qt, Cute Psiphon for All
-## MacOS version 
+## MacOS version
+### Monterrey
 <table>
+    <td >
+          Window mode light theme<br/>
+<img height="160"  width="270"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_Monterrey.jpg"/>
+        </td>
+    </table>
+### Catalina
+<table>
+    <tr>
+    </tr>
     <tr>
         <td>
           Menu mode dark theme<br/>
@@ -106,6 +116,8 @@ A Psiphon GUI client in Qt, Cute Psiphon for All
   </table>
   
   ## Operating systems tested 
+  
+  - MacOS Monterrey 12.1
   
   - MacOS BigSur 11
   
