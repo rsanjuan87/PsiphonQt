@@ -324,7 +324,14 @@ void MainWindow::readout(){
             }else{
                 setTunnelConnecting();
             }
-        }else if (type == ("SocksProxyPortInUse")) {
+        } else if (type == "ActiveTunnel") {
+            timerConnecting.stop();
+            if(!wasConnected){
+                wasConnected=true;
+                ui->commandLinkButton->click();
+            }
+            setTunnelConnected();
+        } else if (type == ("SocksProxyPortInUse")) {
             if (CoreControler::coreIsRunning(tunelCorePath)){
                 CoreControler::killCore(tunelCorePath);
                 connect(process, SIGNAL(finished(int)), this, SLOT(startTunnel()));
