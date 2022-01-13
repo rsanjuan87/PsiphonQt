@@ -73,15 +73,15 @@ include(./src/QAutostart/QAutostart.pri)
 include(./src/QSingleApp/singleapplication.pri)
 
 CONFIG(debug, debug|release) {
-    DESTDIR = ../../outputs/debug
-    win32:DESTDIR = ../../outputs/debug/win
-    macx:DESTDIR = ../../outputs/debug/mac
-    linux:DESTDIR = ../../outputs/debug/linux
+    DESTDIR = outputs/debug
+    win32:DESTDIR = outputs/debug/win
+    macx:DESTDIR = outputs/debug/mac
+    linux:DESTDIR = outputs/debug/linux
 } else {
-    DESTDIR = ../../outputs/release
-    win32:DESTDIR = ../../outputs/release/win
-    macx:DESTDIR = ../../outputs/release/mac
-    linux:DESTDIR = ../../outputs/release/linux
+    DESTDIR = outputs/release
+    win32:DESTDIR = outputs/release/win
+    macx:DESTDIR = outputs/release/mac
+    linux:DESTDIR = outputs/release/linux
 }
 
 
