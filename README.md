@@ -1,6 +1,18 @@
 
 # PsiphonQt
 A Psiphon GUI client in Qt, Cute Psiphon for All
+
+## Build
+
+Clone this repository, then:
+```sh
+cd PsiphonQt
+mkdir build
+cd build
+qmake .. && make
+# Executable files will be in PsiphonQt/build/outputs directory
+```
+
 ## MacOS version
 
 ### Monterrey
