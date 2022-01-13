@@ -130,6 +130,7 @@ A Psiphon GUI client in Qt, Cute Psiphon for All
   - Manjaro 20.2 Kde 
   
   - Deepin Commiunity 10.03
+  - Debian 11 "bullseye", Gnome 3, Xorg
   
   - Windows 10
   
