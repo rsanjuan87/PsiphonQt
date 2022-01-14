@@ -1,7 +1,20 @@
 
 # PsiphonQt
 A Psiphon GUI client in Qt, Cute Psiphon for All
+
+## Build
+
+Clone this repository, then:
+```sh
+cd PsiphonQt
+mkdir build
+cd build
+qmake .. && make
+# Executable files will be in PsiphonQt/build/outputs directory
+```
+
 ## MacOS version
+
 ### Monterrey
 <table>
     <td >
@@ -9,6 +22,7 @@ A Psiphon GUI client in Qt, Cute Psiphon for All
 <img height="160"  width="270"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_Monterrey.jpg"/>
         </td>
     </table>
+    
 ### Catalina
 <table>
     <tr>
@@ -118,23 +132,17 @@ A Psiphon GUI client in Qt, Cute Psiphon for All
   ## Operating systems tested 
   
   - MacOS Monterrey 12.1
-  
   - MacOS BigSur 11
-  
   - MacOS Calalina 10.15.7
   
   - Ubuntu 20.04 Gnome 3 y Kde Plasma
-  
   - Pop_OS 20.10
-  
   - Manjaro 20.2 Kde 
-  
   - Deepin Commiunity 10.03
+  - Debian 11 "bullseye", Gnome 3, Xorg
   
   - Windows 10
-  
   - Windows 7
-
  ## Support 
   
   https://t.me/psiphonqt

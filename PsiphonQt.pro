@@ -75,8 +75,8 @@ include(./src/QSingleApp/singleapplication.pri)
 CONFIG(debug, debug|release) {
     DESTDIR = $$PWD/outputs/debug
     win32:DESTDIR = $$PWD/outputs/debug/win
-    macx:DESTDIR = ../../outputs/debug/mac
-    linux:DESTDIR = ../../outputs/debug/linux
+    macx:DESTDIR = $$PWD/outputs/debug/mac
+    linux:DESTDIR = $$PWD/outputs/debug/linux
 } else {
     DESTDIR = $$PWD/outputs/release
     win32:DESTDIR = $$PWD/outputs/release/win
