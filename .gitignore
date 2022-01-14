@@ -1,3 +1,9 @@
 # Build directories
 build
 outputs
+
+#MacOS files
+._*
+
+#pro.user files
+PsiphonQt.pro.user*

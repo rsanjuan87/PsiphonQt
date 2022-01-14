@@ -934,11 +934,11 @@ void MainWindow::on_actionAbout_Qt_triggered()
 void MainWindow::on_commandLinkButton_clicked()
 {
 #ifdef Q_OS_MAC
-    QDesktopServices::openUrl(QUrl("https://github.com/rsanjuan87/PsiphonQt/#mac"));
+    QDesktopServices::openUrl(QUrl("https://github.com/rsanjuan87/PsiphonQt/#macos-version"));
 #elif defined(Q_OS_WIN)
-    QDesktopServices::openUrl(QUrl("https://github.com/rsanjuan87/PsiphonQt/#win"));
+    QDesktopServices::openUrl(QUrl("https://github.com/rsanjuan87/PsiphonQt/#windows-version"));
 #else
-    QDesktopServices::openUrl(QUrl("https://github.com/rsanjuan87/PsiphonQt/#linux"));
+    QDesktopServices::openUrl(QUrl("https://github.com/rsanjuan87/PsiphonQt/#linux-version"));
 #endif
 }
 
