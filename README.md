@@ -1,6 +1,8 @@
 
 # PsiphonQt
 A Psiphon GUI client in Qt, Cute Psiphon for All
+This project it's not asociated with Psiphon companny
+And is distributed AS IS
 
 ## Build
 
@@ -12,6 +14,15 @@ cd build
 qmake .. && make
 # Executable files will be in PsiphonQt/build/outputs directory
 ```
+
+
+# Donate
+https://paypal.me/rsanjuan87
+
+
+
+<img src="https://github.com/rsanjuan87/telegram-dl/assets/25087943/e69fa58b-f8ac-49bc-a0e1-1008c8f13efc" height="200"/>
+
 
 ## MacOS version
 
@@ -130,8 +141,9 @@ qmake .. && make
   </table>
   
   ## Operating systems tested 
-  
-  - MacOS Monterrey 12.1
+
+  - MacOS Ventura 13.5 (Arm64)
+  - MacOS Monterrey 12.6.8 (intel)
   - MacOS BigSur 11
   - MacOS Calalina 10.15.7
   
@@ -140,7 +152,8 @@ qmake .. && make
   - Manjaro 20.2 Kde 
   - Deepin Commiunity 10.03
   - Debian 11 "bullseye", Gnome 3, Xorg
-  
+
+  - Windows 11
   - Windows 10
   - Windows 7
  ## Support 
