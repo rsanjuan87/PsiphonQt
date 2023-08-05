@@ -21,8 +21,7 @@ qmake .. && make
 
 paypal.me/rsanjuan87
 
-
-<img src="https://github.com/rsanjuan87/telegram-dl/assets/25087943/e69fa58b-f8ac-49bc-a0e1-1008c8f13efc" height="200"/>
+<img src="https://github.com/rsanjuan87/PsiphonQt/assets/25087943/db20311c-7724-4c0f-8d1d-5a91fc2789e5" height="200"/>
 
 qvapay.com/payme/rsanjuan87
 
@@ -34,7 +33,7 @@ qvapay.com/payme/rsanjuan87
 
 ### Monterrey
 <table>
-    <td >
+    td >
           Window mode light theme<br/>
 <img height="160"  width="270"  src="https://raw.githubusercontent.com/rsanjuan87/PsiphonQt/main/screencaps/MacOS_Monterrey.jpg"/>
         </td>
