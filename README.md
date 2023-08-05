@@ -17,11 +17,17 @@ qmake .. && make
 
 
 # Donate
-https://paypal.me/rsanjuan87
+<img src="https://github.com/rsanjuan87/telegram-dl/assets/25087943/e69fa58b-f8ac-49bc-a0e1-1008c8f13efc" height="200"/>
 
+paypal.me/rsanjuan87
 
 
 <img src="https://github.com/rsanjuan87/telegram-dl/assets/25087943/e69fa58b-f8ac-49bc-a0e1-1008c8f13efc" height="200"/>
+
+qvapay.com/payme/rsanjuan87
+
+
+
 
 
 ## MacOS version
